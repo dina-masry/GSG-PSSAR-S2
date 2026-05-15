@@ -1,0 +1,19 @@
+import pandas as pd
+
+# read data from parquet file
+df= pd.read_parquet('./Data/raw/student_coffee_crisis.parquet')
+print('The first five rows:\n',df.head())
+# explore data 
+df.info()
+# check if there is any duplicated rows?
+print('Duplicated rows: ',df.duplicated().sum())
+# check null values
+print('Null values:\n', df.isna().sum())
+# check consistency 
+numerical_cols= df.select_dtypes('number')
+for col in numerical_cols:
+    print(df[col].describe())
+# check consistency for categorical cols
+categorical_cols = df.select_dtypes('object')
+for col in categorical_cols:
+    print(df[col].value_counts())
